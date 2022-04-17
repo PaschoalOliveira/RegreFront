@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ImovelService } from './services/imovel.service';
+import { Imovel } from './imovel';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'regreFront';
+
+  imoveis: Imovel[] = [];
+
+  constructor(private imovelService: ImovelService) {}
+
+  ngOnInit(){
+    this.getImoveis();
+  } 
+
+  getImoveis() {
+    this.imovelService.getImoveis().subscribe((imoveis: Imovel[]) => {
+      this.imoveis = imoveis;
+    });
+  }
 }
